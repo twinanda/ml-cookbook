@@ -46,7 +46,7 @@ command:
         <your_training_script>.py
 ```
 
-To avoid rewriting the task spec, use ancords (`&`) and aliases (`*`) in YAML to reuse the task spec.
+To avoid rewriting the task spec, use ancords (`&`) and aliases (`*`) in YAML to reuse the task spec for `worker` task.
 ### [Optional] Configure the job
 
 If you intent to run this job more than once, you can provide a shared filesystem with model weights and for saving the results. To download the model weights to a shared FS, [follow ths procedure](../../common/hf-downloader/README.md). To mount the filesystem, [you need to create a PV-PVC pair](../../common/shared-filesystem-mount/README.md) and then define a `volume` referencing the PVC:
@@ -62,7 +62,7 @@ volumeMounts:
     - mountPath: /workspace/persistent-storage
         name: persistent-storage
 ```
-If you are jus testing and do not want to mount the filesystem, you can remove the corresponding volume and mount and adjust the arguments of the `finetuning.py` script accordingly to download the model form Hugging Faace (the output will not be saved to any persistent storage in this case).
+If you are just testing and do not want to mount the filesystem, you can remove the corresponding volume and mount and adjust the arguments of the `finetuning.py` script accordingly to download the model form Hugging Faace (the output will not be saved to any persistent storage in this case).
 ```yaml
 finetuning.py \
 --enable_fsdp \
