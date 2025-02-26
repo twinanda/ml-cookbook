@@ -1,19 +1,18 @@
-.# Working with Shared File System in Nebius
+# Working with Shared File System in Nebius
 
 This guide provides instructions on how to work with a shared file system mounted to a managed kubernetes cluster in Nebius. A shared file system allows multiple pods and containers to access and share the same set of files.
 
 ## Prerequisites
 
 Before you start, make sure you have the following:
-- A Nebius account.
-- The Nebius CLI installed and configured.
-- A k8s cluster provisioned with attached shared FS.
+- A k8s cluster provisioned with attached shared FS. Follow [this procedure](https://github.com/nebius/nebius-solution-library/tree/main/k8s-training) to provision a cluster, make sure to set `enable_filestore = true` in the `terraform.tfvars` file to attach a shared FS to cluster nodes.
+- You have created a PV-PVC pair for the shared FS. Follow [this procedure](../shared-filesystem-mount).
 
 ## Overview
 
-When working with shared FS mounted to Nebius mk8s cluster, please keep in mind the following:
-- The shared FS is mounted to all nodes at "/mnt/data" by default (if specified during the cluster creation).
-- When using the CSI driver with with shared FS, the driver will create a subdirectory per each Persistent Volume. Thus, to copy the files in a specific Persisten Volume, you need to allways reuse the same PV-PVC combination.
+When working with shared FS attached to Nebius mk8s cluster, please keep in mind the following:
+- The shared FS is mounted to all nodes at `/mnt/data` by default (specified in `cloud-init` during cluster creation).
+- When using the CSI driver with a shared FS, it creates a separate subdirectory within the mount for each Persistent Volume (PV). To ensure consistency when copying files to a specific PV, always use the same PV-PVC pair for copying and consuming these files (use the same `claimName` in your volume definition). You will not be able to access your files from another PV-PVC pair.
 
 ## Example: Downloading models from Hugging Face to the shared FS
 
