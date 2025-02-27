@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hf-downloader
+spec:
+  containers:
+  - name: hf-downloader
+    command: ["sleep", "infinity"]
+    image: huggingface/transformers-pytorch-gpu:latest
+    resources:
+      limits:
+        nvidia.com/gpu: 0
+    volumeMounts:
+    - name: storage-volume
+      mountPath: /persistent-storage
+  volumes:
+  - name: storage-volume
+    persistentVolumeClaim:
+      claimName: external-storage-persistent-volumeclaim
+  tolerations:
+  - key: "nvidia.com/gpu"
+    operator: "Exists"
+    effect: "NoSchedule"
