@@ -1,5 +1,5 @@
 # Running multi-node BERT pretraining with HuggingFace Accelerate
-This document provides a step-by-step guide to a launching a training job for the BERT model with [HF Accelerate](https://github.com/huggingface/accelerate) launcher. We will use exmple workload from [HF Accelerate examples](https://github.com/huggingface/accelerate/blob/main/examples/complete_nlp_example.py).
+This document provides a step-by-step guide to a launching a training job for the BERT model with [HF Accelerate](https://github.com/huggingface/accelerate) launcher on Slurm (Soperator) cluster. We will use example workload from [HF Accelerate examples](https://github.com/huggingface/accelerate/blob/main/examples/complete_nlp_example.py).
 
 ## Prerequisites
 
