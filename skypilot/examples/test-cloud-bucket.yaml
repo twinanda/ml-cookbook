@@ -1,10 +1,20 @@
 resources:
-  cloud: nebius
+  # cloud: nebius
+  # region: eu-north1
+  cloud: kubernetes
   accelerators: H100:1
-  region: eu-north1
 
 file_mounts:
    /my_data:
+    # mounting nebius buckets requires 
+    # 1. a `nebius` profile in `~/.aws/config` e.g.
+    # [profile nebius]
+    # region = eu-north1
+    # endpoint_url = https://storage.eu-north1.nebius.cloud:443
+    # 2. a `~/.aws/credentials` file with the following content:
+    # [nebius]
+    # aws_access_key_id = <your-access-key>
+    # aws_secret_access_key = <your-secret-key>
     source: nebius://my-nebius-bucket # must be unique; replace with your own bucket name
 
 setup: |
@@ -13,4 +23,5 @@ setup: |
 run: |
   echo 'Run will be executed on every `sky exec` command on all nodes'
   echo 'Do we have data?'
+  touch /my_data/test.txt
   ls -l /my_data

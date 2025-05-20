@@ -1,7 +1,8 @@
 resources:
-  cloud: nebius
+  # cloud: nebius
+  # region: eu-north1
+  cloud: kubernetes
   accelerators: H100:1
-  region: eu-north1
 
 setup: |
     # Clone Pytorch examples repo
