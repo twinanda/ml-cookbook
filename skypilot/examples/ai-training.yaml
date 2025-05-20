@@ -10,7 +10,7 @@ setup: |
     git filter-branch --prune-empty --subdirectory-filter distributed/minGPT-ddp
     # Install dependencies
     pip install uv
-    uv pip install -r requirements.txt "numpy" "torch"
+    uv pip install -r requirements.txt "numpy" "torch" --system
     
 run: |
     cd examples/mingpt

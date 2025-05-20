@@ -1,6 +1,10 @@
 # To launch this job, run:
 # export HF_TOKEN=<your_huggingface_token>
 # sky launch llama4-sglang.yaml -c llama4 --env HF_TOKEN -y
+# 
+# Related blog posts:
+# https://nebius.com/blog/posts/serving-llama-4-skypilot-sglang
+# https://nebius.com/blog/posts/serving-qwen3-skypilot-sglang
 
 resources:
   accelerators: H100:8
