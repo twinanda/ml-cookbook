@@ -19,6 +19,9 @@ export NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_IB_TIMEOUT=20
 # export NCCL_DEBUG=INFO
 
+# use cached dataset and model
+export HF_HUB_OFFLINE=1
+
 # Setup `accelerate` launch args
 head_node_ip=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)
 GPUS_PER_NODE=8
