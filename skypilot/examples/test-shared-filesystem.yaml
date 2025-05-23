@@ -4,10 +4,13 @@
 #   eu-north1:
 #     project_id: project-e00...
 #     fabric: fabric-...
-#     filesystem:
-#       filesystem_id: computefilesystem-e00...
-#       mount_path: /mnt/fs_data
-#       attach_mode: READ_WRITE
+#     filesystems: 
+#       - filesystem_id: computefilesystem-<fs1>
+#         mount_path: /mnt/fs_data
+#         attach_mode: READ_WRITE
+#       - filesystem_id: computefilesystem-<fs2>
+#         mount_path: /mnt/fs_data_2
+#         attach_mode: READ_WRITE
 
 resources:
   cloud: nebius
