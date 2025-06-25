@@ -193,7 +193,7 @@ run: |
     echo "Service account project_id: $(jq -r '.project_id' ~/.config/rclone/service-account.json 2>/dev/null || echo 'ERROR reading project_id')"
     echo "Service account project_number: $(jq -r '.project_number' ~/.config/rclone/service-account.json 2>/dev/null || echo 'ERROR reading project_number')"
   fi
-  
+
   echo "=== End Debug Info ==="
   
   # Test rclone configuration before proceeding
@@ -228,9 +228,12 @@ run: |
   fi
   
   echo "Starting copy process for node ${NODE_RANK}..."
+  # RCLONE TUNING for different file sizes
+  # --transfers=N Number of concurrent file transfers
+  # --multi-thread-streams=N Number of threads per large file (for downloads only)
   rclone copy --files-from $TEMP_DIR/node_${NODE_RANK}_list.txt gcs:$BUCKET_NAME $DEST_DIR \
-  --progress --links --disable-http2 --transfers=128
-  
+  --progress --links --disable-http2 --transfers=128 --multi-thread-streams=16
+
   # Check if rclone copy was successful
   if [ $? -eq 0 ]; then
     echo "✅ Copy process completed successfully for node ${NODE_RANK}"
