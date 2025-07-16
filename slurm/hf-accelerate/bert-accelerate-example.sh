@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=128             # Number of CPUs per task
 #SBATCH --mem=0                         # Memory per node (0 for all)
 #SBATCH --time=00:30:00                 # Time limit
-#SBATCH --output=outputs/%x-%j.out       # Output log file
+#SBATCH --output=outputs/%x-%j.out      # Output log file
 #SBATCH --exclusive                     # Exclusive node access
 #SBATCH --export=ALL                    # Export all environment variables
 
@@ -19,8 +19,11 @@ export NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_IB_TIMEOUT=20
 # export NCCL_DEBUG=INFO
 
-# use cached dataset and model
-export HF_HUB_OFFLINE=1
+# cache dataset and model
+export HF_HOME="$(pwd)/hf_cache"
+# keep dataset cache in memory to avoid
+# potential race condition on a shared FS
+export HF_DATASETS_IN_MEMORY_MAX_SIZE=$((64*1024*1024*1024)) # 64GB
 
 # Setup `accelerate` launch args
 head_node_ip=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)

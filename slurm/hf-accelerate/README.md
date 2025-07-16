@@ -12,7 +12,7 @@ For running this workload, you will need to SSH to the login node of the Soperat
 
 ### Setup the environment
 
-Execute the setup script with `bash setup.sh`. It will create a Python virtual environment, install the necessary dependencies as well as download Python script and `accelerate` config for running multinode training with FSDP (`fsdp_config.yaml`).
+Execute the setup script with `source setup.sh`. It will create a Python virtual environment, install the necessary dependencies as well as download Python script and `accelerate` config for running multinode training with FSDP (`fsdp_config.yaml`).
 
 ### [Optional] Examine the `sbatch` script
 
@@ -26,7 +26,7 @@ One notable difference with [reference Slurm script](https://github.com/huggingf
 
 To submitt the job, simply run:
 ```
-sbatch submit-accelerate-example.sh
+sbatch accelerate-nlp-example.sh
 ```
 
 ### Monitor the job
