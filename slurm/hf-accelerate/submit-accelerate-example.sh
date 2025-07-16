@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=128             # Number of CPUs per task
 #SBATCH --mem=0                         # Memory per node (0 for all)
 #SBATCH --time=00:30:00                 # Time limit
-#SBATCH --output="%x-%j.out"            # Output log file
+#SBATCH --output=outputs/%x-%j.out       # Output log file
 #SBATCH --exclusive                     # Exclusive node access
 #SBATCH --export=ALL                    # Export all environment variables
 
