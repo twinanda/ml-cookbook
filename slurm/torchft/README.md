@@ -1,5 +1,5 @@
 # Running fault-tolerant training with `torchft`
-This document provides a step-by-step guide to a launching a fault tolerant training job for the Llama-3.1-8B model integration [`torchft`](https://github.com/pytorch/torchft) integration with the [`torchtitan`](https://github.com/pytorch/torchtitan) framework on Slurm (Soperator) cluster. 
+This document provides a step-by-step guide to launching a fault tolerant training job for the Llama-3.1-8B model leveraging [`torchft`](https://github.com/pytorch/torchft) integration with the [`torchtitan`](https://github.com/pytorch/torchtitan) framework on Slurm (Soperator) cluster. 
 
 ## Prerequisites
 
@@ -70,11 +70,11 @@ Once both replicas are up, we can see the corresponding `Quorum` messages in the
 
 #### Simulating node failure
 
-Let's bring down one worker node to simulate fa ailure:
+Let's bring down one worker node to simulate a node failure:
 ```
 sudo scontrol update NodeName=worker-0 State=DOWN Reason="manual maintenance"
 ```
-This is enought to knock out one of the replicas and trigger job requeuing:
+This is enough to knock out one of the replicas and trigger job requeuing:
 
 ```
 $ squeue
@@ -83,7 +83,7 @@ $ squeue
               53_0      main tft_repl ckondrat  R       2:46      1 worker-1
 ```
 
-The job `53_1` is now in the pending state due to the failure of `worker-0`. The remaining replica `53_0` continues to run. 
+The job `53_1` is now in the pending state due to the "failure" of `worker-0`. The remaining replica `53_0` continues to run. 
 
 Logs from `53_0` show that an error occured on step 21:
 ```
@@ -91,7 +91,7 @@ Logs from `53_0` show that an error occured on step 21:
 NoneType: None
 ```
 
-`Lighthouse` logs reflect the `Quorum` change due to one replicas failure:
+`Lighthouse` logs reflect the `Quorum` change due to one replica failure:
 ```
 2025-07-16T13:49:41.512 [INFO] [torchft::lighthouse] - Detected quorum change, bumping quorum_id to 3
 2025-07-16T13:49:41.512 [INFO] [torchft::lighthouse] - Quorum! Quorum { quorum_id: 3, participants: [QuorumMember { replica_id: "torchtitan_ft_0:6cc4c926-56d9-4bb9-96f6-544803cae49c", address: "http://worker-1:41093", store_address: "worker-1.soperator-worker-svc.soperator.svc.cluster.local:33745", step: 21, world_size: 8, shrink_only: false, commit_failures: 1, data: "" }], created: Some(Timestamp { seconds: 1752673781, nanos: 512580203 }) }
