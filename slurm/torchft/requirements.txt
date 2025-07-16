@@ -1,0 +1,4 @@
+torchtitan==0.1.0
+tyro==0.9.26
+tensorboard==2.19.0
+wandb==0.21.0
