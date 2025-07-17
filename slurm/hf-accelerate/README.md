@@ -31,7 +31,7 @@ sbatch accelerate-nlp-example.sh
 
 ### Monitor the job
 
-You can monitor the job status using `squeue` command. Once the job is running, you can check the output in the log file specified in the script (`accelerate-example-<job_id>.out`).
+You can monitor the job status using `squeue` command. Once the job is running, you can check the output in the log file specified in the script (`output/accelerate-example-<job_id>.out`).
 
 ### Expected output
 
