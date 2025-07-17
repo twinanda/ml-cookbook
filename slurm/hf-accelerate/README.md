@@ -16,7 +16,7 @@ Execute the setup script with `source setup.sh`. It will create a Python virtual
 
 ### [Optional] Examine the `sbatch` script
 
-The script contains a number of arguments which configure Slurm job (starung with `#SBATCH`). If you want to change the job parameters (e.g. number of nodes, GPUs, etc.), you can modify the script accordingly.
+The script contains a number of arguments which configure Slurm job (starting with `#SBATCH`). If you want to change the job parameters (e.g. number of nodes, GPUs, etc.), you can modify the script accordingly.
 
 One notable difference with [reference Slurm script](https://github.com/huggingface/accelerate/blob/main/examples/slurm/submit_multinode_fsdp.sh) is that here we do not use `module` system as described in the [Accelerate documentation](https://github.com/huggingface/accelerate/blob/main/examples/README.md#slurm-scripts). Instead, we use a Python virtual environment with all the necessary dependencies installed. This is made possible by the fact that Soperator uses shared root filesystem which allows us to consistently use the same virtual environment on all nodes, making the setup more portable and easier to manage.
 
