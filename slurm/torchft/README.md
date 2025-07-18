@@ -12,11 +12,14 @@ For running this workload, you will need to SSH to the login node of the Soperat
 
 ### Install environment with `torchtitan` and `torchft`
 
-Provide your `HF_TOKEN` to download the `Llama-3.1-8B` tokenizer (we will need it further for the training job):
-```
-export HF_TOKEN=<your_huggingface_token_here>
-bash setup.sh
-```
+*Note: `torchft` functionality is experimental so you will have to use nightly builds.*
+
+1. Create a virtual environment and activate it with `python3 -m venv .env`;
+2. Install [nightly build of `torch`](https://pytorch.org/get-started/locally/);
+3. Follow [these instructions](https://github.com/pytorch/torchtitan#from-source) to install the latest `torchtitan` from source into the current directory;
+4. Install `torchft` by [following the documentation in GitHub repository](https://github.com/pytorch/torchft#installing-from-pypi).
+
+After completing these steps, you will need to [download the Llama-3.1 tokenizer](https://github.com/pytorch/torchtitan#downloading-a-tokenizer) (requires access to Llama model repository on Hugging Face).
 
 Optionally, export your WANDB API key to enable logging to Weigh and Biases:
 ```

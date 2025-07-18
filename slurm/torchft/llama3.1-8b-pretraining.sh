@@ -29,16 +29,20 @@ export CUDA_LAUNCH_BLOCKING=0
 # set the network interface
 export NCCL_SOCKET_IFNAME="eth0"
 export GLOO_SOCKET_IFNAME="eth0"
-export PYTHONPATH="$(pwd):$PYTHONPATH"
+
+export PYTHONPATH="$(pwd)/torchtitan:$PYTHONPATH"
+export CONFIG_FILE="$(pwd)/torchtitan/torchtitan/models/llama3/train_configs/llama3_8b.toml"
+
 METRICS_ARG=""
 if [ -n "${WANDB_API_KEY:-}" ]; then
     METRICS_ARG="--metrics.enable-wandb"
 fi
 
-export CONFIG_FILE=${CONFIG_FILE:-"$(pwd)/llama3_8b.toml"}
-
 # adjust sbatch --ntasks and sbatch --nodes above and --nnodes below
 # to your specific node count, and update target launch file.
+
+cd torchtitan
+
 srun \
     torchrun \
     --nnodes $SLURM_NNODES \
@@ -48,8 +52,9 @@ srun \
     --rdzv_endpoint "$HEAD_NODE_IP:29500" \
     --role rank \
     --tee 3 \
-    -m torchtitan.train \
+    ./torchtitan/train.py \
     --job.config_file $CONFIG_FILE \
+    --training.dataset="c4_test" \
     --profiling.no-enable-profiling \
     --comm.trace-buf-size 0 \
     --comm.train-timeout-seconds 300\
