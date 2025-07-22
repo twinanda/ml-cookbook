@@ -11,15 +11,32 @@ Before you start, make sure you have the following:
 For running this workload, you will need to SSH to the login node of the Soperator cluster and clone this repository to the shared filesystem (by default, Sopeartor has `/` mounted as a shared filesystem).
 
 ### Install environment with `torchtitan` and `torchft`
-
 *Note: `torchft` functionality is experimental so you will have to use nightly builds.*
 
-1. Create a virtual environment and activate it with `python3 -m venv .env`;
-2. Install [nightly build of `torch`](https://pytorch.org/get-started/locally/);
-3. Follow [these instructions](https://github.com/pytorch/torchtitan#from-source) to install the latest `torchtitan` from source into the current directory;
-4. Install `torchft` by [following the documentation in GitHub repository](https://github.com/pytorch/torchft#installing-from-pypi).
+1. **Create and activate a virtual environment:**
+   ```bash
+   python3 -m venv .env
+   source .env/bin/activate
+   ```
 
-After completing these steps, you will need to [download the Llama-3.1 tokenizer](https://github.com/pytorch/torchtitan#downloading-a-tokenizer) (requires access to Llama model repository on Hugging Face).
+2. **Install dependencies (including `torch` and `torchft`):**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+3. **Clone the `torchtitan` repository and check out the correct commit:**
+   ```bash
+   git clone https://github.com/pytorch/torchtitan.git
+   cd torchtitan
+   git checkout d69a737 
+   ```
+
+4. **Download the Llama-3.1 tokenizer:**
+   ```bash
+   python scripts/download_tokenizer.py --repo_id meta-llama/Llama-3.1-8B --hf_token=<your_hf_token>
+   cd ..
+   ```
+   Replace `<your_hf_token>` with your Hugging Face API token from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens). This ensures you have access to the Llama model repository.
 
 Optionally, export your WANDB API key to enable logging to Weigh and Biases:
 ```
