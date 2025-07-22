@@ -60,7 +60,7 @@ We are going to reuse the same training config as for the classic distributed tr
 
 #### Start the `Lighthouse` service
 
-Before launching `torchft` training, you need to start the `Lighthouse` service (in this example we are using the login node. If you want to use a worker node or an external server, alter the `TORCHFT_LIGHTHOUSE` env variable accordingly):
+Before launching `torchft` training, you need to start the `Lighthouse` service (in this example we are using the login node. If you want to use a worker node or an external server, alter the `TORCHFT_LIGHTHOUSE` env variable accordingly):  
 *Note: the default `TORCHFT_LIGHTHOUSE` node is `login-0`, if you are on a different node please adjust accordingly*
 
 ```
