@@ -67,6 +67,7 @@ run: |
   export ETA_UPDATE_INTERVAL=${ETA_UPDATE_INTERVAL:-60}
   export ENABLE_DETAILED_PROGRESS=${ENABLE_DETAILED_PROGRESS:-true}
   export ENABLE_CLUSTER_PROGRESS=${ENABLE_CLUSTER_PROGRESS:-true}
+  export SPEED_HISTORY_SIZE=${SPEED_HISTORY_SIZE:-5}
 
   export TEMP_DIR=${DEST_DIR}/s3migration
   sudo mkdir -p $TEMP_DIR
@@ -146,6 +147,35 @@ run: |
       echo "0.00%"
     else
       echo "$(echo "scale=2; $completed * 100 / $total" | bc -l)%"
+    fi
+  }
+
+  # Calculate average speed from history (unused - kept for reference)
+  calculate_average_speed() {
+    local node_rank=$1
+    local history_size=$2
+    
+    # Get the last N speed readings for this node
+    local total_speed=0
+    local valid_readings=0
+    
+    # Read the last N speed values from the history file
+    if [ -f "$TEMP_DIR/node_${node_rank}_speed_history" ]; then
+      local speed_values=$(tail -$history_size "$TEMP_DIR/node_${node_rank}_speed_history" 2>/dev/null)
+      for speed in $speed_values; do
+        if [ "$speed" -gt 0 ] 2>/dev/null; then
+          total_speed=$((total_speed + speed))
+          valid_readings=$((valid_readings + 1))
+        fi
+      done
+    fi
+    
+    # Return average speed if we have valid readings
+    if [ "$valid_readings" -gt 0 ]; then
+      local avg_speed=$((total_speed / valid_readings))
+      echo "$avg_speed"
+    else
+      echo "0"
     fi
   }
 
@@ -714,6 +744,13 @@ run: |
               
               # Store speed for cluster calculation
               echo "$speed_bytes" > $TEMP_DIR/node_${NODE_RANK}_speed
+              # Add to speed history for averaging
+              echo "$speed_bytes" >> $TEMP_DIR/node_${NODE_RANK}_speed_history
+              # Keep only the last N readings
+              if [ -f "$TEMP_DIR/node_${NODE_RANK}_speed_history" ]; then
+                tail -$SPEED_HISTORY_SIZE "$TEMP_DIR/node_${NODE_RANK}_speed_history" > "$TEMP_DIR/node_${NODE_RANK}_speed_history.tmp"
+                mv "$TEMP_DIR/node_${NODE_RANK}_speed_history.tmp" "$TEMP_DIR/node_${NODE_RANK}_speed_history"
+              fi
             fi
           else
             # If no valid speed, clear the speed file
@@ -728,16 +765,38 @@ run: |
         active_nodes=0
         running_nodes=0
         
-        # Sum up speeds from all nodes
+        # Sum up average speeds from all nodes
         for i in $(seq 0 $((NUM_NODES-1))); do
           speed_file="$TEMP_DIR/node_${i}_speed"
+          history_file="$TEMP_DIR/node_${i}_speed_history"
           # Check if node is running (has a done file or speed file)
           if [ -f "$speed_file" ] || [ -f "$TEMP_DIR/node_${i}_done" ]; then
             running_nodes=$((running_nodes + 1))
             if [ -f "$speed_file" ]; then
-              node_speed=$(cat "$speed_file" 2>/dev/null || echo "0")
-              if [ "$node_speed" -gt 0 ]; then
-                cluster_total_speed=$((cluster_total_speed + node_speed))
+              # Use average speed instead of current speed (inline calculation)
+              node_current_speed=$(cat "$speed_file" 2>/dev/null || echo "0")
+              
+              # Calculate average speed inline
+              node_avg_speed=0
+              if [ -f "$history_file" ]; then
+                # Get the last N speed values and calculate average
+                total_speed=0
+                valid_readings=0
+                speed_values=$(tail -$SPEED_HISTORY_SIZE "$history_file" 2>/dev/null)
+                for speed in $speed_values; do
+                  if [ "$speed" -gt 0 ] 2>/dev/null; then
+                    total_speed=$((total_speed + speed))
+                    valid_readings=$((valid_readings + 1))
+                  fi
+                done
+                if [ "$valid_readings" -gt 0 ]; then
+                  node_avg_speed=$((total_speed / valid_readings))
+                fi
+              fi
+              
+              # Use average speed for cluster calculation
+              if [ "$node_avg_speed" -gt 0 ] 2>/dev/null; then
+                cluster_total_speed=$((cluster_total_speed + node_avg_speed))
                 active_nodes=$((active_nodes + 1))
               fi
             fi
@@ -768,7 +827,7 @@ run: |
               cluster_speed_mb=$(echo "scale=2; $cluster_total_speed / 1024 / 1024" | bc -l)
               
               echo "=================================================="
-              progress_log "CLUSTER_ETA" "Cluster speed: ${cluster_speed_mb} MB/s (${active_nodes}/${running_nodes} nodes active)"
+              progress_log "CLUSTER_ETA" "Cluster avg speed: ${cluster_speed_mb} MB/s (${active_nodes}/${running_nodes} nodes active)"
               progress_log "CLUSTER_ETA" "Cluster ETA: $cluster_eta_formatted"
               echo "=================================================="
             fi
