@@ -1,6 +1,6 @@
 resources:
   cloud: nebius
-  region: eu-west1 # https://docs.nebius.com/overview/regions
+  region: <region> # https://docs.nebius.com/overview/regions
   cpus: 16 # https://docs.nebius.com/compute/virtual-machines/types#cpu-configurations
 
 num_nodes: 4 # amount of nodes to parallel download
@@ -10,11 +10,11 @@ envs:
   # =================================================
   # Required variables - must be set before launching
   # =================================================
-  SOURCE_BUCKET: s3://copibara
-  SOURCE_BUCKET_REGION: us-central1
-  SOURCE_BUCKET_ENDPOINT_URL: https://storage.us-central1.nebius.cloud:443
-  SOURCE_BUCKET_ACCESS_KEY_ID: NAKI89ML4PKR5CNMM815
-  SOURCE_BUCKET_ACCESS_KEY: pJwiadNxTpUlwJeOqGulxEj861gi919dBhjAtxai
+  SOURCE_BUCKET: s3://<source-bucket-name>
+  SOURCE_BUCKET_REGION: <region>
+  SOURCE_BUCKET_ENDPOINT_URL: https://storage.<region>.nebius.cloud:443
+  SOURCE_BUCKET_ACCESS_KEY_ID: <access-key-id>
+  SOURCE_BUCKET_ACCESS_KEY: <secreat-access-key>
   DEST_DIR: /mnt/sfs
   # =================================================
   # Progress and ETA Configuration
