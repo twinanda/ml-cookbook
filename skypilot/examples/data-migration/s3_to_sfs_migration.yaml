@@ -14,7 +14,7 @@ envs:
   SOURCE_BUCKET_REGION: <region>
   SOURCE_BUCKET_ENDPOINT_URL: https://storage.<region>.nebius.cloud:443
   SOURCE_BUCKET_ACCESS_KEY_ID: <access-key-id>
-  SOURCE_BUCKET_ACCESS_KEY: <secreat-access-key>
+  SOURCE_BUCKET_ACCESS_KEY: <access-key>
   DEST_DIR: /mnt/sfs
   # =================================================
   # Progress and ETA Configuration

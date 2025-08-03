@@ -2,7 +2,7 @@
 # https://nebius.com/blog/posts/bulk-object-storage-s3-data-migration-with-skypilot
 resources:
   cloud: nebius
-  region: eu-west1
+  region: <region>
   cpus: 8
 
 num_nodes: 2
@@ -12,12 +12,12 @@ file_mounts:
   /tmp/aws_credentials: ~/.aws
 envs:
   # Required variables - must be set before launching
-  SOURCE_AWS_PROFILE: us-central1
-  SOURCE_ENDPOINT_URL: https://storage.us-central1.nebius.cloud:443
-  SOURCE_BUCKET: copibara
-  TARGET_AWS_PROFILE: eu-north1
-  TARGET_ENDPOINT_URL: https://storage.eu-north1.nebius.cloud:443
-  TARGET_BUCKET: copibara
+  SOURCE_AWS_PROFILE: <source-region>
+  SOURCE_ENDPOINT_URL: https://storage.<source-region>.nebius.cloud:443
+  SOURCE_BUCKET: <source-bucket-name>
+  TARGET_AWS_PROFILE: <target-region>
+  TARGET_ENDPOINT_URL: https://storage.<target-region>.nebius.cloud:443
+  TARGET_BUCKET: <target-bucket-name>
   NUM_CONCURRENT: 4
   DEBUG: "false"  # Set to "true" for detailed debug output (must be string, not boolean)
   
