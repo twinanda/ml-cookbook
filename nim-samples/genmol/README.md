@@ -22,7 +22,7 @@ To run these examples locally, see the [Setup](#Setup) section below.
 
 <img src="genmol-use-cases.png" alt="GenMol use cases" width="800"/>
 
-NVIDIA BioNeMo NIMS can be integrated into existing workflows to leverage cutting edge Gen-AI capabilities for drug discovery, from ligand generation to protein folding to docking. For more details, please visit the [NVIDIA BioNeMo NIMs homepage](https://build.nvidia.com/explore/biology).  These capabilities are also integrated into reference workflows in NVIDIA NIM Agent Blueprints. For more details, please visit [NVIDIA NIM Blueprints](https://build.nvidia.com/nim/blueprints).
+NVIDIA BioNeMo NIMS can be integrated into existing workflows to leverage cutting edge Gen-AI capabilities for drug discovery, from ligand generation to protein folding to docking. These capabilities are also integrated into reference workflows in NVIDIA NIM Agent Blueprints. For more details, please visit [NVIDIA NIM Blueprints](https://build.nvidia.com/nim/blueprints).
 
 ## Setup
 
