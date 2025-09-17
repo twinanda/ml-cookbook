@@ -1,6 +1,6 @@
 # NVIDIA GenMol
 
-This example has been adapted from [NVIDIA digital-biology-examples](https://github.com/NVIDIA/digital-biology-examples/tree/main/examples/nims/genmol) to fit Nebius deployment. 
+**The following code examples have been modified from the [NVIDIA digital biology examples](https://github.com/twinanda/digital-biology-examples/tree/main/examples/nims/genmol) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
 
 ## Molecule Generation with the GenMol NIM
 GenMol is a masked diffusion model trained on molecular Sequential Attachment based Fragment Embeddings, or [SAFE representations](https://arxiv.org/abs/2310.10773) for fragment-based molecule generation.  GenMol a generalist model for various drug discovery tasks, including de novo generation, linker design, motif extension, scaffold decoration/morphing, hit generation, and lead optimization.  The use of the SAFE format allows for flexibility in the generation schema, such as:
