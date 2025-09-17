@@ -115,12 +115,12 @@ endpoint = '<endpoint>'
 base_url = f'https://{username}:{password}@{endpoint}'
 ```
 
-#### Environment vars for CLI
+#### CLI with custom URL
 
-If you want to use the boltz2 CLI command, define `BOLTZ2_BASE_URL` as an environment variable by replacing the username, password, and endpoint accordingly. 
+Specify the custom URL as `--base-url` in the command line. For example, use the following command to check the health of the NIM deployment.
 
 ```bash
-export BOLTZ2_BASE_URL="https://<username>:<password>@<endpoint>"
+boltz2 --base-url <base_url> health 
 ```
 
 ### Run All Examples
@@ -132,7 +132,7 @@ python 02_protein_structure_prediction_with_msa.py
 # ... etc
 
 # Or use the CLI examples
-boltz2 .
+boltz2 examples
 ```
 
 ## 📊 Example Categories by Use Case
@@ -254,19 +254,6 @@ sequences:
 
 ## 🐛 Troubleshooting
 
-### Common Issues
 1. **Service not running**: Ensure you point to the right URL of the deployed Boltz-2 NIM. Refer to [this section](#boltz2-nim-url).
 2. **Timeout errors**: Increase `timeout` parameter for complex predictions
 3. **Memory issues**: Reduce `diffusion_samples` or `sampling_steps`
-
-### Getting Help
-```bash
-# Check service health
-boltz2 health
-
-# View examples
-boltz2 .
-
-# Test basic functionality
-python 01_basic_protein_folding.py
-``` 
