@@ -1,6 +1,6 @@
 # Boltz-2 Python Client Examples
 
-**The following code examples have been modified from the [NVIDIA digital biology examples](https://github.com/twinanda/digital-biology-examples/tree/main/examples/nims/boltz-2/examples) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
+**The following code examples have been modified from the [NVIDIA digital biology examples](https://github.com/nvidia/digital-biology-examples/tree/main/examples/nims/boltz-2/examples) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
 
 This directory contains comprehensive examples demonstrating all the different variations of API requests that the Boltz-2 Python client can submit for biomolecular structure prediction.
 
@@ -102,11 +102,10 @@ pip install boltz2-python-client
 
 ### Boltz2 NIM URL
 
-The `boltz2_client` package assumes your NIM is either deployed on `localhost` or on NVIDIA-hosted machines. To make the samples work with Boltz2 NIM that is deployed on Nebius, make sure to update the `Boltz2Client` class instantiation with the proper URL. You will need username and password which were configured during the NIM deployment and the exposed endpoint of the installed NIM which can be found in the installed application detail. 
 
 #### Python API
 
-Replace the username, password, and endpoint accordingly. Replace the values in [`constants.py`](constants.py).
+The `boltz2_client` Python package assumes that your NIM instance is deployed either on localhost or on NVIDIA-hosted infrastructure. We have adjusted all the python samples here to work with the deployed Boltz2 NIM on Nebius. Go to [`constants.py`](constants.py) and replace the username, password, and the endpoint accordingly. 
 
 ```python
 username = '<username>'
@@ -117,7 +116,7 @@ base_url = f'https://{username}:{password}@{endpoint}'
 
 #### CLI with custom URL
 
-Specify the custom URL as `--base-url` in the command line. For example, use the following command to check the health of the NIM deployment.
+Similarly, the `boltz2` CLI command also has the same assumption. To mitigate the issue, specify the URL to Boltz2 NIM deployed on Nebius as `--base-url` in the command line. For example, use the following command to check the health of the NIM deployment.
 
 ```bash
 boltz2 --base-url <base_url> health 
