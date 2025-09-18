@@ -108,7 +108,7 @@ def example_advanced():
     screener = VirtualScreening(client=client, max_workers=2)
     
     # Define binding pocket (example residues near ATP site)
-    pocket_residues = [10, 15, 20, 25, 30, 35, 40]
+    #pocket_residues = [10, 15, 20, 25, 30, 35, 40]
     
     # Run screening with pocket constraints
     result = screener.screen(
@@ -116,7 +116,7 @@ def example_advanced():
         compound_library=COMPOUNDS,
         target_name="BTK Kinase",
         predict_affinity=True,
-        pocket_residues=pocket_residues,
+        #pocket_residues=pocket_residues,
         pocket_radius=12.0,
         recycling_steps=2,
         sampling_steps=40,
