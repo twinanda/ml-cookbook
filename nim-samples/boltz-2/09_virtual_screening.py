@@ -169,7 +169,7 @@ def example_csv_library():
     csv_path.unlink()
 
 
-async def example_async():
+def example_async():
     """Example using async client for better performance."""
     print("\n=== Example 4: Async Virtual Screening ===\n")
     
@@ -258,7 +258,7 @@ def main():
     example_csv_library()
     
     # Run async example
-    asyncio.run(example_async())
+    example_async()
     
     example_batch_processing()
     
