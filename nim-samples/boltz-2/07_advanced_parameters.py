@@ -162,7 +162,7 @@ async def advanced_molecular_systems():
                 polymer_id="A",
                 residue_ids=[10, 15, 20, 25],
                 binder="L1",
-                contacts=[10, 15, 20, 25]
+                contacts=[]
             )
         ]
         
@@ -223,7 +223,7 @@ async def json_configuration_advanced():
                 "polymer_id": "A",
                 "residue_ids": [10, 15, 20, 25, 30],
                 "binder": "LIG",
-                "contacts": [10, 15, 20, 25, 30]
+                "contacts": []
             }
         ],
         "recycling_steps": 5,
