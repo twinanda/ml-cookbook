@@ -314,7 +314,7 @@ async def specialized_options():
             result = await client.predict_protein_structure(
                 sequence=sequence,
                 polymer_id="A",
-                without_potentials=option.get('without_potentials', False),
+                #without_potentials=option.get('without_potentials', False),
                 step_scale=option.get('step_scale', 1.638),
                 recycling_steps=option['recycling_steps'],
                 sampling_steps=option['sampling_steps']
