@@ -6,6 +6,8 @@ This directory contains comprehensive examples demonstrating all the different v
 
 ## 📁 Example Files Overview
 
+In all examples, we updated the way the `base_url` to the NIM endpoint is passed to fit Nebius deployment. In some examples, some additional changes are made to ensure the scripts run without other issues. For examples with additional changes, they are detailed in the description below. 
+
 ### 1. **Basic Protein Folding** (`01_basic_protein_folding.py`)
 - Simple protein structure prediction from sequence
 - Basic parameter usage
@@ -20,6 +22,7 @@ This directory contains comprehensive examples demonstrating all the different v
 - MSA file handling and validation
 - Confidence score analysis and interpretation
 - Educational approach to understanding MSA benefits
+Changes:
 - The structure of `msa-kras-g12x_combined.a3m` has been updated to address `422 Error` from the server. 
 
 **Run:** `python 02_protein_structure_prediction_with_msa.py`
@@ -63,6 +66,7 @@ This directory contains comprehensive examples demonstrating all the different v
 - Complex molecular system configurations
 - JSON configuration files
 - Specialized prediction options
+Changes:
 - Commented out `without_potentials` parameter from `predict()` function since the client API does not seem to support it. 
 
 **Run:** `python 07_advanced_parameters.py`
@@ -85,7 +89,8 @@ This directory contains comprehensive examples demonstrating all the different v
 - Support for CSV/JSON compound libraries
 - Pocket constraint specification
 - Batch processing for large libraries
-- In this example, we override the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL.
+Changes:
+- Overrid the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL.
 - Commented out `pocket_residues` from the `screener.screen()` function because it is causing some pydantic issues.
 - Removed asynchronous example due to `await` error.
 
