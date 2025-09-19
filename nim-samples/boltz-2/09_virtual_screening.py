@@ -10,7 +10,6 @@ This example demonstrates how to run virtual screening campaigns using
 the high-level VirtualScreening API with minimal code.
 """
 
-import asyncio
 from pathlib import Path
 from boltz2_client import Boltz2Client, VirtualScreening, CompoundLibrary, VirtualScreeningResult
 from typing import Union, List, Dict, Optional
@@ -169,38 +168,6 @@ def example_csv_library():
     csv_path.unlink()
 
 
-def example_async():
-    """Example using async client for better performance."""
-    print("\n=== Example 4: Async Virtual Screening ===\n")
-    
-    from boltz2_client import Boltz2Client
-    
-    # Create async client
-    client = Boltz2Client(base_url=base_url)
-    
-    # Create screener with async client
-    screener = VirtualScreening(client=client, max_workers=4)
-    
-    # Large compound library for parallel processing
-    large_library = COMPOUNDS * 3  # Duplicate for demo
-    
-    # Progress tracking
-    def progress_callback(completed, total):
-        print(f"\rProgress: {completed}/{total} ({completed/total:.1%})", end="")
-    
-    # Run async screening
-    result = screener.screen(
-        target_sequence=BTK_SEQUENCE,
-        compound_library=large_library,
-        target_name="BTK Kinase",
-        progress_callback=progress_callback
-    )
-    
-    print(f"\n\nAsync screening completed!")
-    print(f"Total time: {result.duration_seconds:.1f} seconds")
-    print(f"Time per compound: {result.duration_seconds/len(large_library):.1f} seconds")
-
-
 def example_batch_processing():
     """Example with batch processing for large libraries."""
     print("\n=== Example 5: Batch Processing ===\n")
@@ -256,9 +223,6 @@ def main():
     example_minimal()
     example_advanced()
     example_csv_library()
-    
-    # Run async example
-    example_async()
     
     example_batch_processing()
     

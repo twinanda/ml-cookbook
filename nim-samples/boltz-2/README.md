@@ -15,12 +15,12 @@ This directory contains comprehensive examples demonstrating all the different v
 **Run:** `python 01_basic_protein_folding.py`
 
 ### 2. **Protein Structure Prediction with MSA** (`02_protein_structure_prediction_with_msa.py`)
-- **Error 422 from the server**
 - Multiple Sequence Alignment (MSA) integration
 - Direct comparison between basic and MSA-guided predictions
 - MSA file handling and validation
 - Confidence score analysis and interpretation
 - Educational approach to understanding MSA benefits
+- The structure of `msa-kras-g12x_combined.a3m` has been updated to address `422 Error` from the server. 
 
 **Run:** `python 02_protein_structure_prediction_with_msa.py`
 
@@ -58,12 +58,12 @@ This directory contains comprehensive examples demonstrating all the different v
 **Run:** `python 06_yaml_configurations.py`
 
 ### 7. **Advanced Parameters** (`07_advanced_parameters.py`)
-- **Error 422 from the server and `predict()` got an unexpectedargument `without_potentials`**
 - Diffusion parameter exploration
 - Quality vs. speed trade-offs
 - Complex molecular system configurations
 - JSON configuration files
 - Specialized prediction options
+- Commented out `without_potentials` parameter from `predict()` function since the client API does not seem to support it. 
 
 **Run:** `python 07_advanced_parameters.py`
 
@@ -79,14 +79,15 @@ This directory contains comprehensive examples demonstrating all the different v
 **Quick Test:** `python 08_affinity_prediction_simple.py` (simplified version)
 
 ### 9. **Virtual Screening** (`09_virtual_screening.py`)
-- **`example_advance()` has some pydantic runtime issue**
 - High-level API for drug discovery campaigns
 - Parallel compound screening with progress tracking
 - Automatic result analysis and ranking
 - Support for CSV/JSON compound libraries
 - Pocket constraint specification
 - Batch processing for large libraries
-- In this example, we override the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL. 
+- In this example, we override the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL.
+- Commented out `pocket_residues` from the `screener.screen()` function because it is causing some pydantic issues.
+- Removed asynchronous example due to `await` error.
 
 **Run:** `python 09_virtual_screening.py`
 
@@ -248,7 +249,7 @@ sequences:
 
 ## 📚 Additional Resources
 
-- [**Original Boltz2 module**](https://github.com/twinanda/digital-biology-examples/tree/main/examples/nims/boltz-2)
+- [**Original Boltz2 code samples module**](https://github.com/nvidia/digital-biology-examples/tree/main/examples/nims/boltz-2)
 - **CLI Help**: `boltz2 --help`
 
 ## 🐛 Troubleshooting
