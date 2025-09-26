@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Defaults (override via flags)
 PROJECT_NAME="demo"
 GPU_PER_NODE=8
 NUM_WORKERS=2
@@ -26,7 +25,6 @@ EOF
 
 die() { echo "Error: $*" >&2; exit 1; }
 
-# Parse args
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -p|--project)   PROJECT_NAME="${2:-}"; shift 2 ;;
