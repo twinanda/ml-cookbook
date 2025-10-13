@@ -2,9 +2,52 @@
 
 **The following code examples have been modified from the [NVIDIA digital biology examples](https://github.com/nvidia/digital-biology-examples/tree/main/examples/nims/boltz-2/examples) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
 
-This directory contains comprehensive examples demonstrating all the different variations of API requests that the Boltz-2 Python client can submit for biomolecular structure prediction.
+## 🚀 Quick Start
+
+### Pre-requisites
+Install `boltz2_client` through PyPI. 
+
+```bash
+pip install boltz2-python-client
+```
+
+### Boltz2 NIM URL
+
+
+#### Python API
+
+The `boltz2_client` Python package assumes that your NIM instance is deployed either on localhost or on NVIDIA-hosted infrastructure. We have adjusted all the python samples here to work with the deployed Boltz2 NIM on Nebius. Go to [`constants.py`](constants.py) and replace the username, password, and the endpoint accordingly. 
+
+```python
+username = '<username>'
+password = '<password>'
+endpoint = '<endpoint>'
+base_url = f'https://{username}:{password}@{endpoint}'
+```
+
+#### CLI with custom URL
+
+Similarly, the `boltz2` CLI command also has the same assumption. To mitigate the issue, specify the URL to Boltz2 NIM deployed on Nebius as `--base-url` in the command line. For example, use the following command to check the health of the NIM deployment.
+
+```bash
+boltz2 --base-url <base_url> health 
+```
+
+### Run All Examples
+
+```bash
+# Run individual examples
+python 01_basic_protein_folding.py
+python 02_protein_structure_prediction_with_msa.py
+# ... etc
+
+# Or use the CLI examples
+boltz2 examples
+```
 
 ## 📁 Example Files Overview
+
+In some examples, some additional changes are made to ensure the scripts run without other issues. For examples with additional changes, they are detailed in the description below. 
 
 ### 1. **Basic Protein Folding** (`01_basic_protein_folding.py`)
 - Simple protein structure prediction from sequence
@@ -20,6 +63,7 @@ This directory contains comprehensive examples demonstrating all the different v
 - MSA file handling and validation
 - Confidence score analysis and interpretation
 - Educational approach to understanding MSA benefits
+Nebius changes:
 - The structure of `msa-kras-g12x_combined.a3m` has been updated to address `422 Error` from the server. 
 
 **Run:** `python 02_protein_structure_prediction_with_msa.py`
@@ -63,6 +107,7 @@ This directory contains comprehensive examples demonstrating all the different v
 - Complex molecular system configurations
 - JSON configuration files
 - Specialized prediction options
+Nebius changes:
 - Commented out `without_potentials` parameter from `predict()` function since the client API does not seem to support it. 
 
 **Run:** `python 07_advanced_parameters.py`
@@ -85,55 +130,13 @@ This directory contains comprehensive examples demonstrating all the different v
 - Support for CSV/JSON compound libraries
 - Pocket constraint specification
 - Batch processing for large libraries
-- In this example, we override the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL.
+Nebius changes:
+- Overrid the `quick_screen()` function to allow instantiation of `Boltz2Client` with custom URL.
 - Commented out `pocket_residues` from the `screener.screen()` function because it is causing some pydantic issues.
 - Removed asynchronous example due to `await` error.
 
 **Run:** `python 09_virtual_screening.py`
 
-
-## 🚀 Quick Start
-
-### Pre-requisites
-Install `boltz2_client` through PyPI. 
-
-```bash
-pip install boltz2-python-client
-```
-
-### Boltz2 NIM URL
-
-
-#### Python API
-
-The `boltz2_client` Python package assumes that your NIM instance is deployed either on localhost or on NVIDIA-hosted infrastructure. We have adjusted all the python samples here to work with the deployed Boltz2 NIM on Nebius. Go to [`constants.py`](constants.py) and replace the username, password, and the endpoint accordingly. 
-
-```python
-username = '<username>'
-password = '<password>'
-endpoint = '<endpoint>'
-base_url = f'https://{username}:{password}@{endpoint}'
-```
-
-#### CLI with custom URL
-
-Similarly, the `boltz2` CLI command also has the same assumption. To mitigate the issue, specify the URL to Boltz2 NIM deployed on Nebius as `--base-url` in the command line. For example, use the following command to check the health of the NIM deployment.
-
-```bash
-boltz2 --base-url <base_url> health 
-```
-
-### Run All Examples
-
-```bash
-# Run individual examples
-python 01_basic_protein_folding.py
-python 02_protein_structure_prediction_with_msa.py
-# ... etc
-
-# Or use the CLI examples
-boltz2 examples
-```
 
 ## 📊 Example Categories by Use Case
 
