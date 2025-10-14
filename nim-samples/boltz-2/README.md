@@ -1,6 +1,6 @@
 # Boltz-2 Python Client Examples
 
-**The following code examples have been modified from the [NVIDIA digital biology examples](https://github.com/nvidia/digital-biology-examples/tree/main/examples/nims/boltz-2/examples) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
+**The following code examples have been modified (on 16 September 2025) from the [NVIDIA digital biology examples](https://github.com/nvidia/digital-biology-examples/tree/main/examples/nims/boltz-2/examples) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified and complete examples, please refer to the original repository.**
 
 ## 🚀 Quick Start
 

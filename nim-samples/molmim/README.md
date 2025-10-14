@@ -1,6 +1,6 @@
 # NVIDIA MolMIM
 
-**The following [example](MolMIMOracleControlledGeneration.ipynb) have been modified from the [NVIDIA digital biology examples](https://github.com/NVIDIA/digital-biology-examples/tree/main/examples/nims/molmim/MolMIMOracleControlledGeneration.ipynb) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified example, please refer to the original repository.**
+**The following [example](MolMIMOracleControlledGeneration.ipynb) have been modified (on 16 September 2025) from the [NVIDIA digital biology examples](https://github.com/NVIDIA/digital-biology-examples/tree/main/examples/nims/molmim/MolMIMOracleControlledGeneration.ipynb) to align with the Nebius deployment framework and facilitate customer integration. For the unmodified example, please refer to the original repository.**
 
 ## Setup
 
